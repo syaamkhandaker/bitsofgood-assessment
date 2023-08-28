@@ -4,7 +4,6 @@ export default function UserContainer({ data }: any) {
   let [searchParams] = useSearchParams();
   const id: any = searchParams.get("id");
   const user = data[id];
-  console.log(user);
   return (
     <div>
       <div className="flex justify-center mb-4">

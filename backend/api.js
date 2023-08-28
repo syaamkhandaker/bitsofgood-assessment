@@ -27,10 +27,13 @@ app.delete("/api/bog/users/:id", (req, res) => {
       .status(400)
       .json({ success: false, message: "Given ID doesn't exist!" });
   }
-  const user = database.splice(
-    database.findIndex((user) => user.id === id),
-    1
-  );
+  console.log(id);
+  const index = database.findIndex((user) => user.id === id);
+  const user = database.splice(index, 1);
+
+  for (let x = index; x < database.length; x++) {
+    database[x].id = `${parseInt(database[x].id) - 1}`;
+  }
   res.json(user).status(200);
 });
 
@@ -75,7 +78,6 @@ app.post("/api/bog/users/:id", (req, res) => {
   const id = req?.params.id;
   const { name, avatar, hero_project, notes, email, phone, rating, status } =
     req?.query;
-  console.log(id);
   if (
     !id ||
     !name ||

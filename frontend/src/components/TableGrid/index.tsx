@@ -32,7 +32,10 @@ export default function TableGrid({ data }: Props) {
   };
 
   const handleRowSelection = (event: any) => {
-    navigate(`/table/user?id=${event.id}`);
+    if (event.field !== "actions") {
+      console.log(event);
+      navigate(`/table/user?id=${parseInt(event.id) - 1}`);
+    }
   };
 
   return (
@@ -44,7 +47,6 @@ export default function TableGrid({ data }: Props) {
         <DataGrid
           rows={newEntry}
           columns={newEntryTableCols}
-          checkboxSelection
           initialState={{
             pagination: {
               paginationModel: { page: 0, pageSize: 10 },
@@ -56,14 +58,13 @@ export default function TableGrid({ data }: Props) {
       <DataGrid
         rows={data}
         columns={TableCols}
-        checkboxSelection
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 10 },
           },
         }}
         disableRowSelectionOnClick={true}
-        onRowClick={handleRowSelection}
+        onCellClick={handleRowSelection}
         className="cursor-pointer"
       />
     </div>

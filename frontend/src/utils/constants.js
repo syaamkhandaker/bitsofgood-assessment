@@ -1,9 +1,5 @@
-import * as React from "react";
-import AddIcon from "@mui/icons-material/Add";
-import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import SaveIcon from "@mui/icons-material/Save";
-import CancelIcon from "@mui/icons-material/Close";
 import { IconButton } from "@mui/material";
 import { deleteUser, editUser, saveUser } from "../api";
 
@@ -68,16 +64,16 @@ export const TableCols = [
       return (
         <div className="flex gap-3">
           <IconButton
-            onClick={() => {
-              editUser(params);
+            onClick={async () => {
+              await editUser(params);
               window.location.href = "/table";
             }}
           >
             <SaveIcon className="cursor-pointer" />
           </IconButton>
           <IconButton
-            onClick={() => {
-              deleteUser(params.id);
+            onClick={async () => {
+              await deleteUser(params.id);
               window.location.href = "/table";
             }}
           >
