@@ -22,7 +22,7 @@ export default function Table({ data }: any) {
       </div>
       <div className="flex justify-center">
         {data && data.length > 0 && (
-          <div className="">
+          <div className="w-5/6">
             <TableGrid data={data} />
           </div>
         )}

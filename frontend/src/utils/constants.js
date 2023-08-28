@@ -15,7 +15,7 @@ export const TableCols = [
   {
     field: "name",
     headerName: "Name",
-    width: 130,
+    width: 180,
     editMode: "row",
     editable: true,
   },
