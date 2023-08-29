@@ -22,10 +22,12 @@ export default function RoutesContainer() {
       }
       setUsers(response.data);
       const visits: any = {};
-      for (let x in response.data) {
-        visits[response.data[x].id] = 0;
+      if (!localStorage.getItem("visits")) {
+        for (let x in response.data) {
+          visits[response.data[x].id] = 0;
+        }
+        localStorage.setItem("visits", JSON.stringify(visits));
       }
-      localStorage.setItem("visits", JSON.stringify(visits));
       setLoading(false);
     };
     init();
