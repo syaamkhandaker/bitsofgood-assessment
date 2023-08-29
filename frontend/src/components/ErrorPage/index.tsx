@@ -1,3 +1,7 @@
+/**
+ * Page in case any errors occur in code
+ * @returns Error Page
+ */
 export default function ErrorPage() {
   return (
     <div className="h-screen flex justify-center items-center">

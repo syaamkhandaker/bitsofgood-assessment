@@ -1,5 +1,8 @@
 import Nav from "../Nav";
-
+/**
+ * Home page
+ * @returns Home page
+ */
 export default function Home() {
   return (
     <div className="h-screen">

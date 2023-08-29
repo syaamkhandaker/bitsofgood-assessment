@@ -1,5 +1,9 @@
 import { DataGrid } from "@mui/x-data-grid";
-import { TableCols, newEntryTableCols } from "../../utils/constants";
+import {
+  StandardTableCols,
+  AdminTableCols,
+  newEntryTableCols,
+} from "../../utils/constants";
 import { Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
@@ -7,9 +11,17 @@ import { useNavigate } from "react-router-dom";
 
 type Props = {
   data: any;
+  isAuth: boolean;
 };
 
-export default function TableGrid({ data }: Props) {
+/**
+ * Table to show database entries
+ *
+ * @param data -> actual data within database, isAuth -> if user is authenticated
+ * @returns Table
+ */
+
+export default function TableGrid({ data, isAuth }: Props) {
   const navigate = useNavigate();
   const [isNewEntry, setIsNewEntry] = useState(false);
 
@@ -39,9 +51,11 @@ export default function TableGrid({ data }: Props) {
 
   return (
     <div className="m-10">
-      <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-        Add record
-      </Button>
+      {isAuth && (
+        <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
+          Add record
+        </Button>
+      )}
       {isNewEntry && (
         <DataGrid
           rows={newEntry}
@@ -54,18 +68,33 @@ export default function TableGrid({ data }: Props) {
           className=""
         />
       )}
-      <DataGrid
-        rows={data}
-        columns={TableCols}
-        initialState={{
-          pagination: {
-            paginationModel: { page: 0, pageSize: 10 },
-          },
-        }}
-        disableRowSelectionOnClick={true}
-        onCellClick={handleRowSelection}
-        className="cursor-pointer"
-      />
+      {isAuth ? (
+        <DataGrid
+          rows={data}
+          columns={AdminTableCols}
+          initialState={{
+            pagination: {
+              paginationModel: { page: 0, pageSize: 10 },
+            },
+          }}
+          disableRowSelectionOnClick={true}
+          onCellClick={handleRowSelection}
+          className="cursor-pointer"
+        />
+      ) : (
+        <DataGrid
+          rows={data}
+          columns={StandardTableCols}
+          initialState={{
+            pagination: {
+              paginationModel: { page: 0, pageSize: 10 },
+            },
+          }}
+          disableRowSelectionOnClick={true}
+          onCellClick={handleRowSelection}
+          className="cursor-pointer"
+        />
+      )}
     </div>
   );
 }

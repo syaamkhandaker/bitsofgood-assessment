@@ -2,8 +2,65 @@ import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import SaveIcon from "@mui/icons-material/Save";
 import { IconButton } from "@mui/material";
 import { deleteUser, editUser, saveUser } from "../api";
+/**
+ * constants to hold columns that are shown within material ui datagrid
+ */
+export const StandardTableCols = [
+  {
+    field: "avatar",
+    headerName: "Avatar",
+    width: 80,
+    renderCell: (params) => (
+      <img src={params.value} className="rounded-full w-10 h-10" />
+    ),
+  },
+  {
+    field: "name",
+    headerName: "Name",
+    width: 180,
+    editMode: "row",
+    editable: true,
+  },
+  {
+    field: "phone",
+    headerName: "Phone",
+    width: 170,
+    editMode: "row",
+    editable: true,
+  },
+  {
+    field: "email",
+    headerName: "Email",
+    width: 250,
+    editMode: "row",
+    editable: true,
+  },
+  {
+    field: "rating",
+    headerName: "Rating",
+    width: 55,
+    editMode: "row",
+    editable: true,
+  },
+  {
+    field: "status",
+    headerName: "Status",
+    width: 60,
+    editMode: "row",
+    editable: true,
+    type: "singleSelect",
+    valueOptions: [true, false],
+  },
+  {
+    field: "hero_project",
+    headerName: "Hero Project",
+    width: 100,
+    editMode: "row",
+    editable: true,
+  },
+];
 
-export const TableCols = [
+export const AdminTableCols = [
   {
     field: "avatar",
     headerName: "Avatar",
@@ -66,7 +123,7 @@ export const TableCols = [
           <IconButton
             onClick={async () => {
               await editUser(params);
-              window.location.href = "/table";
+              window.location.href = "/admin/table";
             }}
           >
             <SaveIcon className="cursor-pointer" />
@@ -74,7 +131,7 @@ export const TableCols = [
           <IconButton
             onClick={async () => {
               await deleteUser(params.id);
-              window.location.href = "/table";
+              window.location.href = "/admin/table";
             }}
           >
             <DeleteIcon className="cursor-pointer" />
@@ -146,14 +203,14 @@ export const newEntryTableCols = [
           <IconButton
             onClick={async () => {
               await saveUser(params);
-              window.location.href = "/table";
+              window.location.href = "/admin/table";
             }}
           >
             <SaveIcon className="cursor-pointer" />
           </IconButton>
           <IconButton
             onClick={() => {
-              window.location.href = "/table";
+              window.location.href = "/admin/table";
             }}
           >
             <DeleteIcon className="cursor-pointer" />

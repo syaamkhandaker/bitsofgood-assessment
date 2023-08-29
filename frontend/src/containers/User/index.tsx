@@ -4,7 +4,11 @@ import { useSearchParams } from "react-router-dom";
 type Props = {
   data: any;
 };
-
+/**
+ * User page to show user details
+ * @param data -> data within database
+ * @returns User Page listing all users details
+ */
 export default function UserContainer({ data }: Props) {
   let [searchParams] = useSearchParams();
   const id: any = searchParams.get("id");

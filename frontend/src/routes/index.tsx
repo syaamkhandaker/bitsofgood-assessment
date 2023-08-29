@@ -1,4 +1,4 @@
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useMatch, useNavigate } from "react-router-dom";
 import PageNotFound from "../components/PageNotFound";
 import Home from "../components/Home";
 import Table from "../containers/Table";
@@ -8,8 +8,13 @@ import { getUsers } from "../api";
 import { useEffect, useState } from "react";
 import { Images } from "../assets";
 
+/**
+ * Manages all routes accepted/declined for users
+ * @returns Routes Container
+ */
 export default function RoutesContainer() {
   const [users, setUsers] = useState({});
+  const isAuth = useMatch("/admin/*");
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   useEffect(() => {
@@ -43,7 +48,14 @@ export default function RoutesContainer() {
       ) : (
         <Routes>
           <Route path="/" element={<Home />} />{" "}
-          <Route path="/table" element={<Table data={users} />}></Route>
+          <Route
+            path="/viewer/table"
+            element={<Table data={users} isAuth={isAuth !== null} />}
+          />
+          <Route
+            path="/admin/table"
+            element={<Table data={users} isAuth={isAuth !== null} />}
+          />
           <Route path="/table/user" element={<UserPage data={users} />} />
           <Route path="/error" element={<Error />} />
           <Route path="*" element={<PageNotFound />} />
