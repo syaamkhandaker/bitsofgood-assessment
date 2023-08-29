@@ -32,8 +32,7 @@ export default function TableGrid({ data }: Props) {
   };
 
   const handleRowSelection = (event: any) => {
-    if (event.field !== "actions") {
-      console.log(event);
+    if (event.field === "avatar") {
       navigate(`/table/user?id=${parseInt(event.id) - 1}`);
     }
   };
