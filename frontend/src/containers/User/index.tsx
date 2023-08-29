@@ -1,9 +1,30 @@
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-export default function UserContainer({ data }: any) {
+type Props = {
+  data: any;
+};
+
+export default function UserContainer({ data }: Props) {
   let [searchParams] = useSearchParams();
   const id: any = searchParams.get("id");
   const user = data[id];
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    const addVisits = () => {
+      const visits = JSON.parse(localStorage.getItem("visits") || "");
+      console.log(visits);
+      if (!visits[id]) {
+        visits[id] = 1;
+      } else {
+        visits[id] += 1;
+      }
+
+      localStorage.setItem("visits", JSON.stringify(visits));
+      setCount(visits[id]);
+    };
+    addVisits();
+  }, [id]);
   return (
     <div>
       <div className="flex justify-center mb-4">
@@ -41,6 +62,9 @@ export default function UserContainer({ data }: any) {
             <div>{user.notes}</div>
           </div>
         </div>
+      </div>
+      <div className="text-sm text-neutral-500 font-semibold flex justify-center mt-5">
+        Page visited: {count} times
       </div>
     </div>
   );

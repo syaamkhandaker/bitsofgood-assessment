@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
 import TableGrid from "../../components/TableGrid";
-import { getUsers } from "../../api";
 
 export default function Table({ data }: any) {
   return (
